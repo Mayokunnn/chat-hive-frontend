@@ -7,13 +7,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
-
+      backgroundImage : {
+        "main": "url(./main.jpeg)",
+        "onboarding" : "url(./onboarding.jpeg)",
+        "chat": "url(./chat.svg)"
+      }
     },
   },
   plugins: [
     require('daisyui'),
   ],  
   daisyui: {
+   
   },
 }
 export default config
