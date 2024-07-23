@@ -49,11 +49,12 @@ export default function ChatInput() {
       )}
       <FileUpload />
     </div>
-    <div className="w-full flex-grow-1">
+    <div className="w-full flex-grow-1 bg-white rounded-lg">
+      <p className="min-w-52 text-black m-3 mb-0 chat-bubble bg-gray-400"> Hey</p>
       <input
         type="text"
         placeholder="Send a message"
-        className="w-full h-full p-3 text-sm text-gray-500 rounded-md focus:outline-none bg-white"
+        className="w-full h-full p-3 px-5 text-sm text-gray-700 rounded-md focus:outline-none bg-transparent"
       />
     </div>
     <div className="w-full">
