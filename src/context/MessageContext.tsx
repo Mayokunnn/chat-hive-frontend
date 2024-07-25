@@ -1,23 +1,14 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  Dispatch,
-  SetStateAction,
-} from "react";
-import { MessageItem } from "../utils/types";
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { MessageItem } from '../utils/types';
 
 interface MessageContextType {
   messages: MessageItem[];
-  setMessages: Dispatch<SetStateAction<MessageItem[]>>;
+  addMessage: (message: MessageItem) => void;
 }
 
 const MessageContext = createContext<MessageContextType | undefined>(undefined);
 
-export const MessageProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const MessageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [messages, setMessages] = useState<MessageItem[]>([
     {
       content: "Hello, how are you?",
@@ -107,7 +98,7 @@ export const MessageProvider: React.FC<{ children: ReactNode }> = ({
       id: 9,
       messageType: "text",
       url: null,
-      createdAt: "2024-07-20T14:08:00Z",
+      createdAt: "2024-07-22T14:08:00Z",
     },
     {
       content: null,
@@ -116,7 +107,7 @@ export const MessageProvider: React.FC<{ children: ReactNode }> = ({
       id: 10,
       messageType: "image",
       url: "https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      createdAt: "2024-07-20T14:09:00Z",
+      createdAt: "2024-07-22T14:09:00Z",
     },
     {
       content: "I have a meeting at 3 PM.",
@@ -125,7 +116,7 @@ export const MessageProvider: React.FC<{ children: ReactNode }> = ({
       id: 11,
       messageType: "text",
       url: null,
-      createdAt: "2024-07-20T14:04:00Z",
+      createdAt: "2024-07-22T14:04:00Z",
       reply: {
         content: null,
         senderId: 2,
@@ -136,10 +127,14 @@ export const MessageProvider: React.FC<{ children: ReactNode }> = ({
         createdAt: "2024-07-20T14:09:00Z",
       },
     },
-  ]);
+  ],);
+
+  const addMessage = (message: MessageItem) => {
+    setMessages((prevMessages) => [...prevMessages, message]);
+  };
 
   return (
-    <MessageContext.Provider value={{ messages, setMessages }}>
+    <MessageContext.Provider value={{ messages, addMessage }}>
       {children}
     </MessageContext.Provider>
   );
@@ -148,7 +143,7 @@ export const MessageProvider: React.FC<{ children: ReactNode }> = ({
 export const useMessages = () => {
   const context = useContext(MessageContext);
   if (!context) {
-    throw new Error("useMessages must be used within a MessageProvider");
+    throw new Error('useMessages must be used within a MessageProvider');
   }
   return context;
 };

@@ -20,7 +20,7 @@ export default function ChatImage({ message, sameSender, reply}: Props) {
             alt={message.url}
           />
           {!reply && <time
-            className={`text-[10px] absolute bottom-[-0px] opacity-10 text-white group-hover:opacity-50 ${
+            className={`text-[10px] absolute bottom-[-0px] text-white group-hover:opacity-50 ${
               id === message.senderId ? "right-2" : "left-2"
             }  `}
           >

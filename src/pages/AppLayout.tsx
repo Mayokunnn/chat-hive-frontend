@@ -1,6 +1,10 @@
 import Chat from "../components/Chat";
 import ChatHeader from "../components/ChatHeader";
+import EditModal from "../components/EditModal";
+import ForwardModal from "../components/ForwardModal";
 import Main from "../components/Main";
+import Modal from "../components/Modal";
+import ProfileModal from "../components/ProfileModal";
 import SideBar from "../components/SideBar";
 
 export default function AppLayout() {
@@ -15,10 +19,14 @@ export default function AppLayout() {
             <ChatHeader />
           </div>
           <div className=" w-full h-full bg-gray-800 rounded-md">
-            <Chat/>
+            <Chat />
           </div>
         </div>
       </div>
+      <Modal />
+      <ProfileModal />
+      <EditModal />
+      <ForwardModal/>
     </Main>
   );
 }

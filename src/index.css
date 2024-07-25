@@ -16,6 +16,11 @@ body{
     
 }
 
+textarea {
+  overflow: hidden; /* Hides scrollbars */
+  resize: none; /* Disables resizing */
+}
+
 /* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
 * {
   scrollbar-width: thin;

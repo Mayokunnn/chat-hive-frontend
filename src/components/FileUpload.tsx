@@ -1,9 +1,14 @@
 import { useRef, useState } from "react";
 import { HiPlus } from "react-icons/hi2";
+import UploadModal from "./UploadModal"; // Ensure the correct path
+import useModal from "../hooks/useModal";
 
 const FileUpload = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { handleCloseModal: closeModal, handleShowModal } = useModal();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleIconClick = () => {
     if (fileInputRef.current) {
@@ -16,24 +21,26 @@ const FileUpload = () => {
       const file = event.target.files[0];
 
       // Check file size (30MB limit)
-      const maxSizeInMB = 30;
+      const maxSizeInMB = 10;
       if (file.size > maxSizeInMB * 1024 * 1024) {
         setError(`File size exceeds ${maxSizeInMB}MB limit.`);
-        setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
+        setTimeout(() => setError(null), 2000); // Clear error after 3 seconds
         return;
       }
 
-      // Check file type
-      const allowedTypes = ['image/*', 'video/*', '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx'];
-      if (!allowedTypes.includes(file.type) && !allowedTypes.some(type => file.name.endsWith(type))) {
-        setError('Invalid file type.');
-        setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
-        return;
-      }
 
       setError(null);
-      // Handle the file upload logic here
+      setSelectedFile(file);
+      handleShowModal("file");
+      setIsModalOpen(true);
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    closeModal("file");
+    setSelectedFile(null);
+
   };
 
   return (
@@ -48,14 +55,16 @@ const FileUpload = () => {
         type="file"
         name="file"
         className="hidden"
-        accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+        accept="image/*"
         ref={fileInputRef}
         onChange={handleFileChange}
       />
-      {error && <div className="toast toast-top toast-end">
-         <p className=" alert alert-error">{error}</p>
-        {/* Display error message */}
-      </div>}
+      {error && (
+        <div className="toast toast-top toast-end">
+          <p className="alert alert-error">{error}</p>
+        </div>
+      )}
+      {isModalOpen && <UploadModal file={selectedFile} handleCloseModal={handleCloseModal} handleChangeFile={handleIconClick} />}
     </div>
   );
 };

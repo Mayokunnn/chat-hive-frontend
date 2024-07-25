@@ -1,29 +1,49 @@
-import { IoIosArrowDown } from 'react-icons/io';
-import ChatImage from './ChatImage.tsx';
-import { useMessages } from '../context/MessageContext.tsx';
-import ChatText from './ChatText.tsx';
-import { categorizeMessagesByDay } from '../utils/helpers.ts';
+import { IoIosArrowDown } from "react-icons/io";
+import ChatImage from "./ChatImage.tsx";
+import { useMessages } from "../context/MessageContext.tsx";
+import ChatText from "./ChatText.tsx";
+import { categorizeMessagesByDay } from "../utils/helpers.ts";
+import { useReplyMessage } from "../context/ReplyMessageContext.tsx";
+import { useEffect, useRef } from "react";
+import useModal from "../hooks/useModal.tsx";
 
 export default function ChatBubble() {
   const { messages } = useMessages();
+  const { setReplyMessage } = useReplyMessage();
+  const {handleShowModal} = useModal()
+  const chatEndRef = useRef<HTMLDivElement>(null);
   const id = 1;
 
   const categorizedMessages = categorizeMessagesByDay(messages);
 
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   return (
-    <div className='pt-14 pb-4 overflow-visible'>
+    <div className="pt-14 pb-4 overflow-visible">
       {Object.entries(categorizedMessages).map(([day, dayMessages]) => (
-        <div key={day} className='overflow-visible'>
-          <div className="text-center flex items-center justify-center my-4"><div className='text-white rounded-xl px-1.5 text-sm bg-gray-600'>{day}</div></div>
+        <div key={day} className="overflow-visible">
+          <div className="text-center flex items-center justify-center my-4">
+            <div className="text-white rounded-xl px-1.5 text-sm bg-gray-600">
+              {day}
+            </div>
+          </div>
           {dayMessages.map((message, index) => {
             const isSameSenderAsPrevious =
               index > 0 && dayMessages[index - 1].senderId === message.senderId;
+
+            const handleReplyClick = () => {
+              setReplyMessage(message);
+            };
 
             return (
               <div
                 key={message.id}
                 className={`chat group gap-2 overflow-visible ${
-                  id === message.senderId ? 'chat-end' : 'chat-start'
+                  id === message.senderId ? "chat-end" : "chat-start"
                 } `}
               >
                 {!isSameSenderAsPrevious && (
@@ -42,11 +62,19 @@ export default function ChatBubble() {
                   </>
                 )}
                 <div className="flex items-center gap-x-2 overflow-visible">
-                  <ChatText message={message} sameSender={isSameSenderAsPrevious} />
-                  <ChatImage message={message} sameSender={isSameSenderAsPrevious} />
+                  <ChatText
+                    message={message}
+                    sameSender={isSameSenderAsPrevious}
+                  />
+                  <ChatImage
+                    message={message}
+                    sameSender={isSameSenderAsPrevious}
+                  />
                   <div
                     className={`dropdown dropdown-top overflow-visible ${
-                      id === message.senderId ? 'dropdown-left' : 'dropdown-right'
+                      id === message.senderId
+                        ? "dropdown-left"
+                        : "dropdown-right"
                     }`}
                   >
                     <div className="cursor-pointer" tabIndex={0} role="button">
@@ -60,16 +88,16 @@ export default function ChatBubble() {
                       tabIndex={0}
                       className="menu dropdown-content bg-gray-700 text-white w-32 rounded-md z-[100] p-2 shadow"
                     >
-                      <li className='hover:bg-gray-800'>
-                        <a>Reply</a>
+                      <li className="hover:bg-gray-800">
+                        <a onClick={handleReplyClick}>Reply</a>
                       </li>
-                      <li className='hover:bg-gray-800'>
+                      <li onClick={() => handleShowModal('forward')} className="hover:bg-gray-800">
                         <a>Forward</a>
                       </li>
-                      <li className='hover:bg-gray-800'>
+                      {message.content && <li onClick={() => handleShowModal('edit')} className="hover:bg-gray-800">
                         <a>Edit</a>
-                      </li>
-                      <li className='hover:bg-gray-800'>
+                      </li>}
+                      <li onClick={() => handleShowModal('confirm')} className="hover:bg-gray-800">
                         <a>Delete</a>
                       </li>
                     </ul>
@@ -80,6 +108,7 @@ export default function ChatBubble() {
           })}
         </div>
       ))}
+      <div ref={chatEndRef} />
     </div>
   );
 }

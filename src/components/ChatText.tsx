@@ -13,7 +13,7 @@ const id = 1;
   return (
     message.content && (
       <div
-        className={`chat-bubble min-w-48 text-sm relative ${reply ? "bg-gray-700 mb-1 cursor-pointer" : " p-2 pb-4" }  ${
+        className={`chat-bubble max-w-96 text-sm relative ${reply ? "bg-gray-700 mb-1 cursor-pointer" : " p-2 px-3 pb-4" }  ${
           id === message.senderId ? "order-last" : "order-first"
         }  ${
           sameSender && id !== message.senderId && !reply
@@ -28,7 +28,7 @@ const id = 1;
         )}
         {message.content}
        {!reply && <time
-          className={`text-[10px] absolute bottom-0  opacity-10 text-white group-hover:opacity-50 ${
+          className={`text-[10px] absolute bottom-0 text-white group-hover:opacity-50 ${
             id === message.senderId ? "right-3" : "left-2"
           }  `}
         >

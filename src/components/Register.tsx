@@ -2,23 +2,23 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import FormButton from "./FormButton";
-import SignUpOption from "./SignUpOption";
 import Divider from "./Divider";
 
 export default function Register() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
+
   useEffect(() => {
     document.title = "Sign Up | Chat Hive"
   }, [])
 
   return (
-    <div className="w-full rounded-xl rounded-r-[4rem] bg-white flex flex-col items-center p-12 gap-3">
+    <div className="w-full rounded-xl rounded-r-[4rem] bg-white flex flex-col items-center pt-16 p-12 gap-6">
       <div className="text-left w-full px-16">
         <h1 className="text-3xl">Create account</h1>
       </div>
-      <div className="py-8 px-16 w-full flex flex-col items-center gap-8">
+      <div className="py-8 px-16 w-full flex flex-col items-center gap-10">
         <input
           type="name"
           placeholder="Full Name"
@@ -54,7 +54,6 @@ export default function Register() {
 
       <Divider>Or Sign Up with</Divider>
 
-      <SignUpOption />
 
       <p>
         Have an account?{" "}

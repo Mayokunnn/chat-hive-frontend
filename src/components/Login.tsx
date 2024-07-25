@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import FormButton from "./FormButton";
-import SignUpOption from "./SignUpOption";
+// import SignUpOption from "./SignUpOption";
 import Divider from "./Divider";
 
 export default function Login() {
@@ -50,7 +50,7 @@ export default function Login() {
 
       <Divider>Or Sign Up with</Divider>
 
-      <SignUpOption />
+      {/* <SignUpOption /> */}
 
       <p>Don't have an account? <span className="font-semibold cursor-pointer" onClick={()=> navigate('/register')}>Sign Up</span></p>
     </div>
