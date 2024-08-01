@@ -1,10 +1,8 @@
-import { MessageProvider } from "../context/MessageContext";
 import ChatBubble from "./ChatBubble";
 import { IoMdArrowDown } from "react-icons/io";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import useScroll from "../hooks/useScroll";
 import ChatInput from "./ChatInput";
-import { ReplyMessageProvider } from "../context/ReplyMessageContext";
 
 export default function Chat() {
   const scrollableRef = useRef<HTMLUListElement>(null); // Adjust type based on your actual element
@@ -19,14 +17,9 @@ export default function Chat() {
     }
   };
 
-  useEffect(() => {
-    document.title = "Conversation Name | Chat Hive"
-  }, [])
 
 
   return (
-    <MessageProvider>
-      <ReplyMessageProvider>
         <div className="relative h-full w-full pt-3 px-2 grid grid-rows-[1fr_auto] bg-chat bg-cover">
           {showButton && (
             <IoMdArrowDown
@@ -38,7 +31,7 @@ export default function Chat() {
           )}
 
           <ul
-            className="w-full relative h-full overflow-auto "
+            className="w-full relative h-full overflow-auto flex flex-col-reverse"
             ref={scrollableRef}
             id="messageBody"
           >
@@ -46,7 +39,5 @@ export default function Chat() {
           </ul>
           <ChatInput />
         </div>
-      </ReplyMessageProvider>
-    </MessageProvider>
   );
 }

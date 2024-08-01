@@ -1,15 +1,17 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { MessageItem } from '../utils/types';
+import { Message } from '../utils/types';
 
 interface MessageContextType {
-  messages: MessageItem[];
-  addMessage: (message: MessageItem) => void;
+  messages: Message[];
+  addMessage: (message: Message) => void;
+  setMessages: (messages: Message[]) => void;
+  removeMessage: (id: string) => void;
 }
 
 const MessageContext = createContext<MessageContextType | undefined>(undefined);
 
 export const MessageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [messages, setMessages] = useState<MessageItem[]>([
+  const [messages, setMessages] = useState<Message[]>([
     {
       content: "Hello, how are you?",
       senderId: 1,
@@ -129,12 +131,16 @@ export const MessageProvider: React.FC<{ children: ReactNode }> = ({ children })
     },
   ],);
 
-  const addMessage = (message: MessageItem) => {
+  const addMessage = (message: Message) => {
     setMessages((prevMessages) => [...prevMessages, message]);
   };
 
+  const removeMessage = (id: string) => {
+    setMessages((prevMessages) => prevMessages.filter((message) => message.id != id));
+  };
+
   return (
-    <MessageContext.Provider value={{ messages, addMessage }}>
+    <MessageContext.Provider value={{ messages, addMessage, setMessages, removeMessage }}>
       {children}
     </MessageContext.Provider>
   );

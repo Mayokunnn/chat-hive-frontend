@@ -1,16 +1,16 @@
 import { format, isToday, isYesterday, isWithinInterval, subDays, getDay } from 'date-fns';
-import { MessageItem } from './types';
+import { Message} from './types';
 
 interface CategorizedMessages {
-  [key: string]: MessageItem[];
+  [key: string]: Message[];
 }
 
 const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-export function categorizeMessagesByDay(messages: MessageItem[]): CategorizedMessages {
+export function categorizeMessagesByDay(messages: Message[]): CategorizedMessages {
   const categorizedMessages: CategorizedMessages = {};
 
-  const addToCategory = (key: string, message: MessageItem) => {
+  const addToCategory = (key: string, message: Message) => {
     if (!categorizedMessages[key]) {
       categorizedMessages[key] = [];
     }
@@ -39,10 +39,18 @@ export function categorizeMessagesByDay(messages: MessageItem[]): CategorizedMes
 
 
 
-export default function getTime(time: string){
+export function getTime(time: string ){
     return new Date(time).toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,
       })
+}
+
+
+export function getInitials(name: string): string {
+  // Split the name into words
+  const words = name.split(' ');
+  const initials = words?.[0]?.[0] + words?.[1]?.[0];
+  return initials.toUpperCase();
 }

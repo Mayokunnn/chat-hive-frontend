@@ -1,4 +1,4 @@
-import getTime from "../utils/helpers.ts";
+import {getTime} from "../utils/helpers.ts";
 import { MessageItem } from "../utils/types.ts";
 import ChatReply from "./ChatReply.tsx";
 
@@ -9,14 +9,14 @@ interface Props {
 }
 
 export default function ChatText({ message, sameSender , reply}: Props) {
-const id = 1;
+const id = localStorage.getItem("userId");
   return (
     message.content && (
       <div
         className={`chat-bubble max-w-96 text-sm relative ${reply ? "bg-gray-700 mb-1 cursor-pointer" : " p-2 px-3 pb-4" }  ${
-          id === message.senderId ? "order-last" : "order-first"
+          id == message.senderId ? "order-last" : "order-first"
         }  ${
-          sameSender && id !== message.senderId && !reply
+          sameSender && id != message.senderId && !reply
             ? "ml-12"
             : sameSender && id == message.senderId && !reply
             ? "mr-10 "

@@ -6,6 +6,8 @@ import AppLayout from "./pages/AppLayout";
 import Onboarding from "./pages/Onboarding";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import { ConversationProvider } from "./context/ConversationContext";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +22,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
+      <ConversationProvider>
       <BrowserRouter>
         <Routes>
           <Route element={<PageLayout />}>
@@ -37,6 +40,27 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </ConversationProvider>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "whitesmoke",
+            color: "green",
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 }
