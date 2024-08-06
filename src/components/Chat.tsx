@@ -31,7 +31,7 @@ export default function Chat() {
           )}
 
           <ul
-            className="w-full relative h-full overflow-auto flex flex-col-reverse"
+            className="w-full relative h-full overflow-auto flex flex-col justify-end"
             ref={scrollableRef}
             id="messageBody"
           >

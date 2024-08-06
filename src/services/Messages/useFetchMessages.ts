@@ -17,6 +17,7 @@ export const useFetchMessages = (conversationId: string) => {
   // Fetch messages for a conversation
   const messagesQuery = useQuery<MessageData>({
     queryKey: ['messages', conversationId],
+    enabled: !!conversationId,
     queryFn: () => fetchMessages(conversationId),
   });
 
@@ -48,26 +49,39 @@ export const useFetchMessages = (conversationId: string) => {
 
   // Update message status
   const updateMessageStatusMutation = useMutation({
-    mutationFn: ({ messageId, status }: { messageId: string; status: string }) =>
-      updateMessageStatus(messageId, status, conversationId),
+    mutationFn: ({ id, read }: { id: string; read: boolean }) =>
+      updateMessageStatus(id, read, conversationId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['messages', conversationId],
+        queryKey: [['messages', conversationId], 'conversations'],
         refetchType: 'active',
       });
+      toast.success("Read")
     },
   });
 
   // Edit a message
   const editMessageMutation = useMutation({
-    mutationFn: ({ messageId, message }: { messageId: string; message: Partial<Message> }) =>
-      editMessage(messageId, message, conversationId),
+    mutationFn: ({ messageId , message }: { messageId: string; message: string }) =>
+     { 
+      const messagePayload = {
+        content:message,
+        conversationId,
+        senderId: localStorage.getItem('userId'), 
+        type: 'text',
+        messageId,
+      }
+      editMessage(messageId, messagePayload, conversationId)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['messages', conversationId],
         refetchType: 'active',
       });
     },
+    onError:(data) => {
+      console.log(data)
+    }
   });
 
   // Delete a message

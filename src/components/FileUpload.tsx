@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { HiPlus } from "react-icons/hi2";
-import UploadModal from "./UploadModal"; // Ensure the correct path
+import UploadForm from "./UploadForm"; // Ensure the correct path
 import useModal from "../hooks/useModal";
+import Modal from "./Modal";
 
 const FileUpload = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -28,7 +29,6 @@ const FileUpload = () => {
         return;
       }
 
-
       setError(null);
       setSelectedFile(file);
       handleShowModal("file");
@@ -40,7 +40,6 @@ const FileUpload = () => {
     setIsModalOpen(false);
     closeModal("file");
     setSelectedFile(null);
-
   };
 
   return (
@@ -64,7 +63,15 @@ const FileUpload = () => {
           <p className="alert alert-error">{error}</p>
         </div>
       )}
-      {isModalOpen && <UploadModal file={selectedFile} handleCloseModal={handleCloseModal} handleChangeFile={handleIconClick} />}
+      {isModalOpen && (
+        <Modal name="file">
+          <UploadForm
+            file={selectedFile}
+            handleCloseModal={handleCloseModal}
+            handleChangeFile={handleIconClick}
+          />
+        </Modal>
+      )}
     </div>
   );
 };

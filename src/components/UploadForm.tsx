@@ -1,4 +1,3 @@
-import ReactDOM from "react-dom";
 
 interface FileModalProps {
   file: File | null;
@@ -6,8 +5,8 @@ interface FileModalProps {
   handleChangeFile: () => void;
 }
 
-const UploadModal: React.FC<FileModalProps> = ({ file, handleCloseModal, handleChangeFile }) => {
-  return ReactDOM.createPortal(
+const UploadForm: React.FC<FileModalProps> = ({ file, handleCloseModal, handleChangeFile }) => {
+  return (
     <dialog id="file" className="modal" open>
       <div className="modal-box space-y-6">
         <h3 className="font-bold text-lg">Upload File</h3>
@@ -28,9 +27,8 @@ const UploadModal: React.FC<FileModalProps> = ({ file, handleCloseModal, handleC
           <button className="btn btn-info">Send</button>
         </div>
       </div>
-    </dialog>,
-    document.getElementById("root") // This is where the portal will render
+    </dialog>
   );
 };
 
-export default UploadModal;
+export default UploadForm;

@@ -1,6 +1,6 @@
 // src/api/messages.ts
 import axiosInstance from '../api';
-import { Message, MessageData } from '../../utils/types';
+import { editMessageData, Message, MessageData } from '../../utils/types';
 
 export const fetchMessages = async (conversationId: string): Promise<MessageData> => {
   const { data } = await axiosInstance.get<MessageData>(`/conversations/${conversationId}/messages`);
@@ -17,12 +17,12 @@ export const forwardMessage = async (messageId: string, conversationId: string) 
   return data.data;
 };
 
-export const updateMessageStatus = async (messageId: string, status: string, conversationId: string) => {
-  const { data } = await axiosInstance.post(`/conversations/${conversationId}/messages/${messageId}/update-status`, { status });
+export const updateMessageStatus = async (messageId: string, read: boolean, conversationId: string) => {
+  const { data } = await axiosInstance.post(`/conversations/${conversationId}/messages/${messageId}/update-status`, { read });
   return data.data;
 };
 
-export const editMessage = async (messageId: string, message: Partial<Message>,  conversationId: string) => {
+export const editMessage = async (messageId: string, message: editMessageData,  conversationId: string) => {
   const { data } = await axiosInstance.post(`/conversations/${conversationId}/messages/${messageId}/edit`, message);
   return data.data;
 };

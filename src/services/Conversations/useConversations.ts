@@ -51,7 +51,7 @@ export const useConversations = () => {
 
   // Delete conversation
   const deleteConversationMutation = useMutation({
-    mutationFn: deleteConversation,
+    mutationFn: (conversationId) => deleteConversation(conversationId),
     onSuccess: () => {
         queryClient.invalidateQueries({
             queryKey: ['conversations'],

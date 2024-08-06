@@ -1,6 +1,7 @@
 import { useConversations } from "../services/Conversations/useConversations";
 import { Conversation } from "../utils/types";
 import ChatItem from "./ChatItem";
+import { PiChatTeardropDotsFill } from "react-icons/pi";
 
 export default function Chats() {
   const { conversations: conversationsData, } = useConversations();
@@ -22,7 +23,10 @@ export default function Chats() {
   }
 
   return (
-    <div className=" w-full h-full">
+    <div className=" w-full h-full relative">
+      <div className="absolute bottom-10 right-10 cursor-pointer">
+        <PiChatTeardropDotsFill color="#021526" size={40} />
+      </div>
       <ul className=" w-full h-full overflow-auto">
         {conversations &&
           conversations?.map((conversation: Conversation) => (

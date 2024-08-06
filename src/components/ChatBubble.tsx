@@ -11,8 +11,9 @@ import { useConversation } from "../context/ConversationContext.tsx";
 import { Message } from "../utils/types.ts";
 import ChatSkeleton from "./ChatSkeleton.tsx";
 import Avatar from "./Avatar.tsx";
-import { useFetchMessages } from "../services/Messages/useFetchMessages.ts";
-import { useModalContext } from "../context/ModalContext.tsx";
+import Modal from "./Modal.tsx";
+import DeleteMessageForm from "./DeleteMessageForm.tsx";
+import EditMessageForm from "./EditMessageForm.tsx";
 
 export default function ChatBubble() {
   const { conversation } = useConversation();
@@ -20,23 +21,18 @@ export default function ChatBubble() {
   const { handleShowModal } = useModal();
   const chatEndRef = useRef<HTMLDivElement>(null);
   const id = localStorage.getItem("userId");
-  const { setMessages, messages, removeMessage } = useMessages();
+  const { setMessages, messages} = useMessages();
   const { useMessages: fetchMessages,  } = useConversations();
   const { data, isSuccess, isError, isPending } = fetchMessages(conversation?.id);
-  const {setModalMessage, setModalAction, setType} = useModalContext()
-  const {deleteMessageMutation} = useFetchMessages(conversation?.id)
-  const {mutate: deleteMessage} = deleteMessageMutation
 
-  const handleDelete = (id: string) => {
-    handleShowModal("confirm");
-    setModalMessage("Are you sure you want to delete this message?");
-    setType("delete");
-    setModalAction(() => () => {
-      removeMessage(id);
-      deleteMessage(id);
-    });
-  };
-  
+  // const handleEdit = (id: string) => {
+  //   handleShowModal("edit");
+  //   setModalMessage("Are you sure you want to delete this message?");
+  //   setType("edit");
+  //   setModalAction(() => (id: string) => {
+  //     editMessage(id);
+  //   });
+  // };
 
 
   useEffect(() => {
@@ -87,10 +83,10 @@ export default function ChatBubble() {
               const handleReplyClick = () => {
                 setReplyMessage(message);
               };
-
               return (
                 <div
                   key={message.id}
+                  data-id={message.id}
                   className={`chat group gap-x-2 overflow-visible ${
                     id == message.senderId ? "chat-end" : "chat-start"
                   } `}
@@ -151,18 +147,24 @@ export default function ChatBubble() {
                         </li>
                         {message.content  && id == message.senderId && (
                           <li
-                            onClick={() => handleShowModal("edit")}
+                            onClick={() => handleShowModal(`editMessage-${message.id}`)}
                             className="hover:bg-gray-800"
                           >
                             <a>Edit</a>
+                            <Modal name={`editMessage-${message.id}`}>
+                            <EditMessageForm id={message.id} message={message.content} />
+                          </Modal>
                           </li>
                         )}
                         {id == message.senderId &&
                          <li
-                          onClick={() => handleDelete(message.id)}
+                          onClick={() => handleShowModal(`deleteMessage-${message.id}`)}
                           className="hover:bg-gray-800"
                         >
                           <a>Delete</a>
+                          <Modal name={`deleteMessage-${message.id}`}>
+                            <DeleteMessageForm id={message.id} />
+                          </Modal>
                         </li>}
                       </ul>
                     </div>

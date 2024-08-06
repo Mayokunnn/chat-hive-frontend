@@ -1,10 +1,6 @@
 import Chat from "../components/Chat";
 import ChatHeader from "../components/ChatHeader";
-import EditModal from "../components/EditModal";
-import ForwardModal from "../components/ForwardModal";
 import Main from "../components/Main";
-import Modal from "../components/Modal";
-import ProfileModal from "../components/ProfileModal";
 import SideBar from "../components/SideBar";
 import { useConversation } from "../context/ConversationContext";
 import { MessageProvider } from "../context/MessageContext";
@@ -46,10 +42,6 @@ export default function AppLayout() {
               </div>
             )}
           </div>
-          <Modal />
-          <ProfileModal />
-          <EditModal />
-          <ForwardModal />
         </ReplyMessageProvider>
       </MessageProvider>
     </Main>

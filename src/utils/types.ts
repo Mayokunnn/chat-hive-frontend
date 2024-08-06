@@ -148,3 +148,11 @@ export interface GroupData {
   data: Group;
   status: string;
 }
+
+export interface editMessageData {
+  messageId: string;
+  senderId: string;
+  conversationId:string
+  type: string;
+  content: string
+}

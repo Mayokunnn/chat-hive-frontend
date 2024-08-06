@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import useModal from '../hooks/useModal';
 import { useConversation } from '../context/ConversationContext';
 import Avatar from './Avatar';
@@ -6,7 +5,7 @@ import Avatar from './Avatar';
 export default function ProfileModal() {
   const {handleShowModal} = useModal();
   const {conversation} = useConversation()
-  return ReactDOM.createPortal(
+  return (
     <dialog id="profile" className="modal">
       <div className="modal-box min-w-96 max-w-2xl min-h-96 max-h-4xl p-6">
         <div>
@@ -27,15 +26,14 @@ export default function ProfileModal() {
           <div className="divider"></div>
           <ul className="space-y-5 flex flex-col justify-center px-5">
             <li className="">Set Chat Wallpaper</li>
-            <li className="text-error cursor-pointer" onClick={() => handleShowModal('confirm')} >Block Conversation</li>
-            <li className="text-error cursor-pointer" onClick={() => handleShowModal('confirm')} >Delete Conversation</li>
+            <li className="text-error cursor-pointer" onClick={() => handleShowModal('block')} >Block Conversation</li>
+            <li className="text-error cursor-pointer" onClick={() => handleShowModal('delete')} >Delete Conversation</li>
           </ul>
         </div>
       </div>
       <form method="dialog" className="modal-backdrop">
         <button>close</button>
       </form>
-    </dialog>,
-    document.getElementById('root') // This is where the portal will render
+    </dialog>
   );
 }
