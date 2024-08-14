@@ -32,16 +32,26 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="w-full rounded-xl rounded-r-[4rem] bg-white flex flex-col items-center p-12 gap-4">
-      <div className="text-center">
-        <h1 className="text-3xl lg:text-4xl">Welcome Back</h1>
-        <h2 className="text-lg">Please login to continue</h2>
+    <div className="w-full bg-white flex flex-col items-center justify-center px-8 gap-3">
+      <div className="space-y-2">
+        <h1 className="text-3xl lg:text-4xl text-accent font-semibold">
+          Login to your Account
+        </h1>
+        <h2 className="text-lg text-accent font-medium">
+          See what is going on with your friends
+        </h2>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="py-12 px-16 w-full flex flex-col items-center gap-10">
-        <div className="py-12 px-16 w-full flex flex-col items-center gap-10">
+      {/* <SignUpOption /> */}
+
+      <Divider>Or Sign In with</Divider>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full flex flex-col items-center gap-10"
+      >
+        <div className="px-16 py-6 w-full flex flex-col items-center gap-y-10">
           <input
             type="email"
-            placeholder="Email address"
+            placeholder="Email"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -49,11 +59,11 @@ export default function Login() {
                 message: "Invalid email address",
               },
             })}
-            className={`border-b-2 border-base-300 px-3 py-2 outline-none focus:outline-none w-full ${
+            className={`border-2 border-base-300 rounded-md py-4 px-5 items-center outline-none focus:outline-none w-full ${
               errors.email ? "border-red-500" : ""
             }`}
           />
-          <div className="border-b-2 border-base-300 w-full flex items-center">
+          <div className="border-2 border-base-300 rounded-md p-2 w-full flex items-center">
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -73,9 +83,9 @@ export default function Login() {
               className="cursor-pointer"
             >
               {showPassword ? (
-                <FaRegEye color="gray" size={20} />
+                <FaRegEye color="#7F265B" size={20} />
               ) : (
-                <FaRegEyeSlash size={20} color="gray" />
+                <FaRegEyeSlash size={20} color="#7F265B" />
               )}
             </div>
           </div>
@@ -94,14 +104,10 @@ export default function Login() {
         </div>
       </form>
 
-      <Divider>Or Sign Up with</Divider>
-
-      {/* <SignUpOption /> */}
-
       <p>
         Don't have an account?{" "}
         <span
-          className="font-semibold cursor-pointer"
+          className="font-semibold cursor-pointer text-lg text-secondary"
           onClick={() => navigate("/register")}
         >
           Sign Up

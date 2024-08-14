@@ -6,6 +6,6 @@ interface Props {
 
 export default function Divider({children}: Props) {
   return (
-    <div className="divider px-16 text-gray-500">{children}</div>
+    <div className="divider px-24 font-medium h-2 text-accent">{children}</div>
   )
 }

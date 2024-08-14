@@ -1,6 +1,5 @@
 
 export interface UserResource {
-  type: string;
   id: number;
   name: string;
   email: string;
@@ -62,9 +61,8 @@ export interface UserData {
 }
 
 export interface Conversation {
-  type: 'conversation';
   id: number;
-  conversationType: string;
+  type: string;
   name: string;
   image: string;
   emailVerifiedAt?: string | null;
@@ -84,7 +82,6 @@ export interface Conversation {
 }
 
 export interface Group {
-  type: 'group';
   id: number;
   name: string;
   image: string;
@@ -110,7 +107,6 @@ export interface Message {
   conversationId?: number;
   read?: boolean;
   emailVerifiedAt?: string | null;
-  createdAt?: string | undefined;
   updatedAt?: string | undefined;
   includes?: {
       conversation?: Conversation;
@@ -150,9 +146,6 @@ export interface GroupData {
 }
 
 export interface editMessageData {
-  messageId: string;
-  senderId: string;
-  conversationId:string
   type: string;
   content: string
 }

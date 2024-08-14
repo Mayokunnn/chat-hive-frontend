@@ -8,6 +8,11 @@ export const fetchConversations = async (): Promise<ConversationsData> => {
   return data.data; // Adjust based on your response structure
 };
 
+export const fetchAllConversations = async (): Promise<ConversationsData> => {
+  const { data } = await axiosInstance.get(`/conversations`);
+  return data.data; // Adjust based on your response structure
+};
+
 export const fetchSingleConversation = async (conversationId: number): Promise<ConversationData> => {
   const { data } = await axiosInstance.get<ConversationData>(`/conversations/${conversationId}`);
   return data;

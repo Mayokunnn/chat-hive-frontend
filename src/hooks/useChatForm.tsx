@@ -30,8 +30,8 @@ export function useChatForm() {
       senderId: localStorage.getItem("userId"), // Replace with actual sender ID
       conversationId: conversation?.id, // Replace with actual conversation ID
       type: "text",
-      createdAt: new Date().toISOString(),
-      reply: replyMessage? replyMessage.id : null ,
+      updatedAt: new Date().toISOString(),
+      reply_to: replyMessage? replyMessage.id : null ,
     };
 
     addMessage(newMessage);

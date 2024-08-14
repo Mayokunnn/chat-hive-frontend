@@ -17,8 +17,10 @@ export function categorizeMessagesByDay(messages: Message[]): CategorizedMessage
     categorizedMessages[key].push(message);
   };
 
+
   messages.forEach((message) => {
-    const messageDate = new Date(message.createdAt);
+    const messageDate = new Date(message?.updatedAt ?? message?.createdAt);
+
 
     if (isToday(messageDate)) {
       addToCategory('Today', message);

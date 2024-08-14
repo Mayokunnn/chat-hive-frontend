@@ -31,10 +31,16 @@ export default function Register() {
   }, []);
 
   return (
-    <div className="w-full rounded-xl rounded-r-[4rem] bg-white flex flex-col items-center pt-16 p-12 gap-6">
-      <div className="text-left w-full px-16">
-        <h1 className="text-3xl">Create account</h1>
+    <div className="w-full h-full bg-white flex flex-col justify-center items-center px-8 gap-2">
+      <div className="space-y-2">
+        <h1 className="text-3xl lg:text-4xl text-accent font-semibold">
+          Create your account
+        </h1>
+        <h2 className="text-lg text-accent font-medium">
+          Some of your friends are waiting for you
+        </h2>
       </div>
+      <Divider>Or Sign In with</Divider>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="py-8 px-16 w-full flex flex-col items-center gap-10"
@@ -44,7 +50,7 @@ export default function Register() {
             type="text"
             placeholder="Full Name"
             {...register("name", { required: "Full Name is required" })}
-            className={`border-b-2 border-base-300 px-3 py-2 outline-none focus:outline-none w-full ${
+            className={`border-2 border-base-300 px-5 py-4 rounded-md outline-none focus:outline-none w-full ${
               errors.name ? "border-red-500" : ""
             }`}
           />
@@ -53,7 +59,7 @@ export default function Register() {
         <div className="w-full">
           <input
             type="email"
-            placeholder="Email address"
+            placeholder="Email"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -61,7 +67,7 @@ export default function Register() {
                 message: "Invalid email address",
               },
             })}
-            className={`border-b-2 border-base-300 px-3 py-2 outline-none focus:outline-none w-full ${
+            className={`border-2 border-base-300 px-5 py-4 rounded-md outline-none focus:outline-none w-full ${
               errors.email ? "border-red-500" : ""
             }`}
           />
@@ -69,7 +75,7 @@ export default function Register() {
             <p className="text-red-500">{errors.email.message}</p>
           )}
         </div>
-        <div className="border-b-2 border-base-300 w-full flex items-center">
+        <div className="border-2 p-2 rounded-md border-base-300 w-full flex items-center">
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Password"
@@ -89,9 +95,9 @@ export default function Register() {
             className="cursor-pointer"
           >
             {showPassword ? (
-              <FaRegEye color="gray" size={20} />
+              <FaRegEye color="#7F265B" size={20} />
             ) : (
-              <FaRegEyeSlash size={20} color="gray" />
+              <FaRegEyeSlash size={20} color="#7F265B" />
             )}
           </div>
         </div>
@@ -109,9 +115,6 @@ export default function Register() {
           </FormButton>
         </div>
       </form>
-
-      <Divider>Or Sign Up with</Divider>
-
       <p>
         Have an account?{" "}
         <span

@@ -4,6 +4,7 @@ import {
   fetchConversations, 
   fetchSingleConversation, 
   createConversation, 
+  fetchAllConversations,
   updateConversation, 
   deleteConversation, 
 } from './conversations';
@@ -17,6 +18,13 @@ export const useConversations = () => {
     queryKey: ['conversations'],
     queryFn: fetchConversations,
   });
+
+
+  const allConversations = useQuery({
+    queryKey: ['conversations'],
+    queryFn: fetchAllConversations,
+  });
+
 
   // Fetch single conversation
   const useSingleConversation = (conversationId: number) => {
@@ -74,6 +82,7 @@ export const useConversations = () => {
     createConversationMutation,
     updateConversationMutation,
     deleteConversationMutation,
+    allConversations,
     useMessages,
   };
 };

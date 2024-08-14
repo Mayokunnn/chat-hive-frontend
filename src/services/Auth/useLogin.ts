@@ -24,8 +24,17 @@ export const useLogin = () => {
       navigate('/');
     },
     onError: (data) => {
-      console.log(data);
-      toast.error("Couldn't log you in");
+      const errorData = data?.response?.data
+      console.log(errorData.status);
+      if(errorData.status == 422){
+        if(errorData.error[0].includes('You have tried too many times')){
+          toast.error(`Try again in 30 minutes`);
+        } else {
+        toast.error(`${errorData.error[0] || ""}`);
+      }    
+    } else if(errorData.status == 400){
+      toast.error(`Account not found`);
+    }
     }
   });
 };

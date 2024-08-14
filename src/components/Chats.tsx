@@ -24,8 +24,8 @@ export default function Chats() {
 
   return (
     <div className=" w-full h-full relative">
-      <div className="absolute bottom-10 right-10 cursor-pointer">
-        <PiChatTeardropDotsFill color="#021526" size={40} />
+      <div className="absolute bottom-10 right-5 cursor-pointer">
+        <PiChatTeardropDotsFill color="#7F265B" size={50} />
       </div>
       <ul className=" w-full h-full overflow-auto">
         {conversations &&

@@ -32,7 +32,7 @@ export default function ChatImage({ message, sameSender, reply }: Props) {
               id == message.senderId ? "left-2" : "left-2"
             }  `}
           >
-            {getTime(message.createdAt)}
+            {getTime(message.updatedAt)}
           </time>
         )}
       </div>

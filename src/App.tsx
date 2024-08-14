@@ -8,6 +8,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import { ConversationProvider } from "./context/ConversationContext";
 import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "./context/AuthContext";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,25 +24,29 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <ConversationProvider>
       <BrowserRouter>
-        <Routes>
-          <Route element={<PageLayout />}>
-            <Route path="/" element={<AppLayout />} />
+        <ConversationProvider>
+          <AuthProvider>
+            <Routes>
+              <Route element={<PageLayout />}>
+                <Route path="/" element={<AppLayout />} />
 
-            <Route element={<Onboarding />}>
-              <Route path="/login" element={<Login/>} />
-              <Route path="/register" element={<Register/>} />
-            </Route>
+                <Route element={<Onboarding />}>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                </Route>
 
-            <Route
-              path="/home"
-              element={<div className="btn btn-danger">App</div>}
-            />
-          </Route>
-        </Routes>
+                <Route element={<NotFound />} path="*" />
+
+                <Route
+                  path="/home"
+                  element={<div className="btn btn-danger">App</div>}
+                />
+              </Route>
+            </Routes>
+          </AuthProvider>
+        </ConversationProvider>
       </BrowserRouter>
-      </ConversationProvider>
       <Toaster
         position="top-center"
         gutter={12}
@@ -56,8 +62,8 @@ export default function App() {
             fontSize: "16px",
             maxWidth: "500px",
             padding: "16px 24px",
-            backgroundColor: "whitesmoke",
-            color: "green",
+            backgroundColor: "white",
+            color: "#7F265B",
           },
         }}
       />

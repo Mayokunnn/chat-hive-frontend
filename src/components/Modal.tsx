@@ -7,6 +7,7 @@ interface Props {
 }
 
 export default function Modal({ children, name }: Props) {
+  console.log(name)
   return ReactDOM.createPortal(
     <dialog id={name} className="modal">
       {children}

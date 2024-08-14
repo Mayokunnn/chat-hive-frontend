@@ -12,15 +12,12 @@ export default function EditMessageForm({ message, id }: Props) {
   const { updateMessage } = useMessages();
   const { handleCloseModal } = useModal();
   
-  // const initialValue = value;
-
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(() => e.target.value);
   };
 
   function onEdit() {
     updateMessage(id, value);
-    handleCloseModal(`editMessage-${id}`);
   }
 
   return (
@@ -44,7 +41,7 @@ export default function EditMessageForm({ message, id }: Props) {
         >
           Cancel
         </button>
-        <button className="btn btn-error" onClick={onEdit}>
+        <button className="btn btn-error capitalize" onClick={onEdit}>
           Edit
         </button>
       </div>

@@ -15,7 +15,7 @@ export default function SideBar() {
   ];
 
   isLoading && isPending && (
-    <div className="p-8 pb-2 w-full h-full grid grid-rows-[auto_1fr] gap-5">
+    <div className="p-8 pb-2 w-full h-full grid bg-neutral-content grid-rows-[auto_1fr] gap-5">
       <div className="h-full w-full flex justify-between items-center">
         <h2 className="text-2xl font-bold">Messages</h2>
         <div className={`skeleton`}>

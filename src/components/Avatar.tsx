@@ -12,7 +12,7 @@ export default function Avatar({name, image, active, status, size}: Props) {
   return (
     image ? (
         <div
-          className={`avatar cursor-pointer hover:opacity-80 ${
+          className={`avatar bg-secondary cursor-pointer ${
             active ? "online" : ""
           } `}
         >
@@ -26,7 +26,7 @@ export default function Avatar({name, image, active, status, size}: Props) {
             active ? "online" : ""
           } `}
         >
-          <div className={`${status ? "skeleton" : "bg-neutral"} text-neutral-content ${size == 'small' ? "w-10": "w-16"} rounded-full`}>
+          <div className={`${status ? "skeleton" : "bg-secondary"} text-secondary-content font-medium ${size == 'small' ? "w-10": "w-16"} rounded-full`}>
             <span className={`${size =="small" ? "text-sm" :"text-xl"} ${status ? "skeleton" : ""}`}>
               {name && getInitials?.(name)}
             </span>

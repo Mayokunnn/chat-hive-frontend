@@ -38,16 +38,16 @@ export default function ChatItem({ conversation }: Props) {
   }
 
   return (
-    <li className="flex btn-ghost items-center p-2 py-3 rounded-md cursor-pointer gap-2" onClick={() => setConversation(conversation)}>
+    <li className="flex items-center p-2 py-3 hover:bg-neutral rounded-md cursor-pointer gap-2" onClick={() => setConversation(conversation)}>
       <Avatar name={conversation?.name} image={conversation?.image} active={conversation?.active} />
       <div className="w-full flex justify-between ">
         <div className="flex flex-col justify-between">
-          <h3 className="text-lg font-semibold">{conversation?.name}</h3>
-          <p className="text-sm text-gray-500">{conversation?.lastMessage ? conversation.lastMessage.length > 250 ? "Photo" : conversation.lastMessage : ""}</p>
+          <h3 className="text-lg font-semibold text-primary-content">{conversation?.name}</h3>
+          <p className="text-sm text-primary-content">{conversation?.lastMessage ? conversation.lastMessage.length > 250 ? "Photo" : conversation.lastMessage : ""}</p>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <p className="text-sm text-gray-500">{conversation.lastMessage && getTime(conversation?.lastMessageTime)}</p>
-          <p className="text-[10px] text-white bg-gray-500 rounded-full py-0.25 px-[0.3rem]">
+          <p className="text-sm text-primary-content">{conversation.lastMessage && getTime(conversation?.lastMessageTime)}</p>
+          <p className="text-[10px] text-secondary-content bg-secondary rounded-full py-0.25 px-[0.3rem]">
           {conversation?.unreadMessages > 0 && conversation?.unreadMessages }
           </p>
         </div>

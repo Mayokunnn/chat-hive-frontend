@@ -11,7 +11,6 @@ export default function DeleteMessageForm({id}: Props) {
 
   function onDelete(){
     removeMessage(id);
-    console.log(id);
   }
 
   return (

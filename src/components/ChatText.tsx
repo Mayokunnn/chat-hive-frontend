@@ -13,8 +13,8 @@ export default function ChatText({ message, sameSender, reply }: Props) {
   return (
     message.content && (
       <div
-        className={`chat-bubble w-full min-w-24 max-w-96 whitespace-pre font-normal text-wrap break-all text-[0.9rem] overflow-visible relative ${
-          reply ? "bg-gray-700 mb-1 cursor-pointer" : " p-2 px-3"
+        className={`chat-bubble bg-secondary text-secondary-content w-full min-w-16 max-w-96 whitespace-pre font-normal text-wrap break-all text-[0.9rem] overflow-visible relative ${
+          reply ? "bg-gray-700 mb-1 cursor-pointer" : "py-2 px-3"
         }  ${
           id == message.senderId ? "order-last pr-8" : "order-first pl-8"
         }  ${
@@ -31,11 +31,11 @@ export default function ChatText({ message, sameSender, reply }: Props) {
         {message.content}
         {!reply && (
           <time
-            className={`text-[10px] absolute bottom-0 text-white group-hover:opacity-50 ${
+            className={`text-[10px] absolute bottom-0 text-secondary-content group-hover:opacity-50 ${
               id === message.senderId ? "right-2" : "left-2"
             }  `}
           >
-            {getTime(message.createdAt)}
+            {getTime(message.updatedAt)}
           </time>
         )}
       </div>

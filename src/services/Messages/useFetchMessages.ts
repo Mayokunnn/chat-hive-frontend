@@ -66,10 +66,7 @@ export const useFetchMessages = (conversationId: string) => {
      { 
       const messagePayload = {
         content:message,
-        conversationId,
-        senderId: localStorage.getItem('userId'), 
         type: 'text',
-        messageId,
       }
       editMessage(messageId, messagePayload, conversationId)
     },

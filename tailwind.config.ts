@@ -9,7 +9,7 @@ const config: Config = {
     extend: {
       backgroundImage : {
         "main": "url(./main.jpeg)",
-        "onboarding" : "url(./onboarding.jpeg)",
+        "onboarding" : "url(./bg-onboarding/svg)",
         "chat": "url(./chat.svg)"
       }
     },
@@ -18,7 +18,25 @@ const config: Config = {
     require('daisyui'),
   ],  
   daisyui: {
-   
+    themes: [
+      {'light': {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        ...require("daisyui/src/theming/themes")["light"],
+        primary: "#FFE6C9",
+        secondary: "#7F265B",
+        accent: "#525252",
+        neutral: "#fffaf5"
+      }},
+      {'dark': {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        ...require("daisyui/src/theming/themes")["dark"],
+        primary: "#FFE6C9",
+        secondary: "#7F265B",
+        accent: "#525252",
+        // neutral: "#fffaf5"
+      }},
+
+    ]
   },
 }
 export default config

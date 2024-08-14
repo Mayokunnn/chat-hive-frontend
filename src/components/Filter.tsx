@@ -19,14 +19,14 @@ export const Filter = ({ filterField, options }: Props) => {
     setSearchParams(searchParams);
   };
   return (
-    <div className="bg-base-200 p-1 flex rounded-md space-x-2">
+    <div className="bg-primary p-1 text-primary-content flex rounded-md space-x-2">
       {options.map((opt) => (
         <button
           onClick={() => handleClick(opt.value)}
           key={opt.value}
           className={`${
             opt.value === currentFilter
-              ? "bg-gray-500 rounded-md text-white"
+              ? "bg-secondary rounded-md text-white"
               : ""
           } text-sm px-2 py-0.5 w-full`}
         >

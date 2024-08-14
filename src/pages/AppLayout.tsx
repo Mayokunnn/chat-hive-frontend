@@ -16,26 +16,26 @@ export default function AppLayout() {
     <Main>
       <MessageProvider>
         <ReplyMessageProvider>
-          <div className="bg-white w-full relative h-full max-h-full rounded-xl p-1.5 grid grid-cols-[35%_65%]">
+          <div className=" w-full bg-base-100 relative h-full max-h-full rounded-xl p-1.5 grid grid-cols-[35%_65%]">
             <div className=" w-full">
               <SideBar />
             </div>
             {conversation ? (
               <div className="h-full w-full grid grid-rows-[auto_1fr]">
-                <div className="p-2 h-full w-full overflow-visible">
+                <div className=" h-full w-full overflow-visible">
                   <ChatHeader />
                 </div>
-                <div className=" w-full h-full bg-gray-800 rounded-md">
+                <div className=" w-full h-full bg-primary rounded-md">
                   <Chat />
                 </div>
               </div>
             ) : (
-              <div className="h-full w-full bg-slate-100 flex flex-col gap-3 items-center justify-center">
+              <div className="h-full w-full bg-primary flex flex-col gap-3 items-center justify-center">
                 <div className="">
                   <img src="./conversations.svg" alt="No conversations" />
                 </div>
                 <div>
-                  <h2 className="text-2xl text-gray-700">
+                  <h2 className="text-2xl text-base-300">
                     Coming to mobile soon
                   </h2>
                 </div>
