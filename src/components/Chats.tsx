@@ -2,22 +2,29 @@ import { useConversations } from "../services/Conversations/useConversations";
 import { Conversation } from "../utils/types";
 import ChatItem from "./ChatItem";
 import { PiChatTeardropDotsFill } from "react-icons/pi";
+import Modal from "./Modal";
+import CreateConversationForm from "./CreateConversationForm";
 
 export default function Chats() {
-  const { conversations: conversationsData, } = useConversations();
-  
-  const {data: conversations, isSuccess} = conversationsData;
+  const { conversations: conversationsData } = useConversations();
+
+  const { data: conversations, isSuccess } = conversationsData;
 
   // console.log(conversations)
-  if (isSuccess && conversations?.length === 0) {
+  if (isSuccess && conversations?.length == 0) {
     return (
       <div className="flex flex-col gap-3 items-center justify-center">
         <div className="">
           <img src="./conversations.svg" alt="No conversations" />
         </div>
-        <div>
-          <button className="btn btn-neutral">Add new conversation</button>
-        </div>
+        <Modal.Open opens="create-conversation">
+          <button className="btn bg-secondary text-secondary-content">
+            Add new conversation
+          </button>
+        </Modal.Open>
+        <Modal.Window name="create-conversation">
+          <CreateConversationForm />
+        </Modal.Window>
       </div>
     );
   }
@@ -25,7 +32,12 @@ export default function Chats() {
   return (
     <div className=" w-full h-full relative">
       <div className="absolute bottom-10 right-5 cursor-pointer">
-        <PiChatTeardropDotsFill color="#7F265B" size={50} />
+        <Modal.Open opens="create-conversation">
+          <PiChatTeardropDotsFill color="#7F265B" size={50} />
+        </Modal.Open>
+        <Modal.Window name="create-conversation">
+          <CreateConversationForm />
+        </Modal.Window>
       </div>
       <ul className=" w-full h-full overflow-auto">
         {conversations &&

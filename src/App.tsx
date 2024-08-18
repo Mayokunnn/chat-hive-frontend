@@ -10,6 +10,8 @@ import { ConversationProvider } from "./context/ConversationContext";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context/AuthContext";
 import NotFound from "./pages/NotFound";
+import VerifyOTP from "./components/VerifyOTP";
+import Modal from "./components/Modal";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,29 +25,32 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} position="left" /> */}
       <BrowserRouter>
-        <ConversationProvider>
-          <AuthProvider>
-            <Routes>
-              <Route element={<PageLayout />}>
-                <Route path="/" element={<AppLayout />} />
+        <Modal>
+          <ConversationProvider>
+            <AuthProvider>
+              <Routes>
+                <Route element={<PageLayout />}>
+                  <Route path="/" element={<AppLayout />} />
 
-                <Route element={<Onboarding />}>
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
+                  <Route element={<Onboarding />}>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/verify" element={<VerifyOTP />} />
+                  </Route>
+
+                  <Route element={<NotFound />} path="*" />
+
+                  <Route
+                    path="/home"
+                    element={<div className="btn btn-danger">App</div>}
+                  />
                 </Route>
-
-                <Route element={<NotFound />} path="*" />
-
-                <Route
-                  path="/home"
-                  element={<div className="btn btn-danger">App</div>}
-                />
-              </Route>
-            </Routes>
-          </AuthProvider>
-        </ConversationProvider>
+              </Routes>
+            </AuthProvider>
+          </ConversationProvider>
+        </Modal>
       </BrowserRouter>
       <Toaster
         position="top-center"

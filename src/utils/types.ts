@@ -17,6 +17,14 @@ export interface UserResource {
   };
 }
 
+export interface Error {
+  message: string;
+  data: {
+    [key: string]: [string]
+  };
+  status: string;
+}
+
 export interface LoginResponse {
   message: string;
   data: {
@@ -32,12 +40,14 @@ export interface LoginResponse {
 export interface RegisterResponse {
   message: string;
   data: {
-    [key: number]: {
       token: string;
       token_type: string;
-      user: UserResource;
-      expires_in: number; // Expiry time in seconds
-    };
+      otpExpiration: string;
+      user: {
+        id: string;
+        email: string;
+      }
+      expires_in: number; // Expiry time in seconds-
   };
   status: string;
 }
@@ -60,6 +70,12 @@ export interface UserData {
   status: string;
 }
 
+export interface UsersData {
+  message: string;
+  data: UserResource[];
+  status: string;
+}
+
 export interface Conversation {
   id: number;
   type: string;
@@ -79,6 +95,13 @@ export interface Conversation {
   links: {
       self: string;
   };
+}
+
+export interface CreateConversationData{
+  user_ids: (string | number | null)[];
+  name: string;
+  image: File;
+  chat_wallpaper: File
 }
 
 export interface Group {

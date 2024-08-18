@@ -14,11 +14,10 @@ export default function ChatInput() {
   const { replyMessage, setReplyMessage } = useReplyMessage();
   const { control, handleSubmit, onEmojiClick, onSubmit } = useChatForm();
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  useInputFocus(replyMessage ,inputRef)
-
+  useInputFocus(replyMessage, inputRef);
 
   const handleInputChange = (value: string) => {
-    if (value.trim() === '') {
+    if (value.trim() === "") {
       setReplyMessage(null);
     }
   };
@@ -53,13 +52,13 @@ export default function ChatInput() {
       </div>
       <div className="w-full flex-grow-1 bg-white rounded-lg">
         {replyMessage && replyMessage.content && (
-          <p className="min-w-52 text-black m-3 mb-0 chat-bubble bg-gray-300">
+          <p className="min-w-52 text-black m-3 mb-0 chat-bubble bg-neutral">
             {replyMessage.content}
           </p>
         )}
         {replyMessage && replyMessage.url && (
           <img
-            className="max-w-64 mb-0 chat-bubble opacity-80 bg-gray-300"
+            className="max-w-64 mb-0 chat-bubble opacity-80 bg-gray-neutral"
             src={replyMessage.url}
           />
         )}
@@ -75,13 +74,13 @@ export default function ChatInput() {
               className="w-full h-full p-3 px-5 text-gray-700 rounded-md text-base focus:outline-none bg-transparent"
               autoComplete="off"
               rows={1} // Adjust this to control the height
-      wrap="soft" // Ensures text wrapping
+              wrap="soft" // Ensures text wrapping
               onChange={(e) => {
-                field.onChange(e); // Ensure react-hook-form handles the change
-                handleInputChange(e.target.value); // Handle input value change
+                field.onChange(e);
+                handleInputChange(e.target.value);
               }}
               onKeyDown={(e) => {
-                if (e.key === 'Backspace') {
+                if (e.key === "Backspace") {
                   handleInputChange(e.currentTarget.value); // Clear reply message on backspace if empty
                 }
               }}

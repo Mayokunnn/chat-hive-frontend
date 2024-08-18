@@ -31,7 +31,7 @@ export function useChatForm() {
       conversationId: conversation?.id, // Replace with actual conversation ID
       type: "text",
       updatedAt: new Date().toISOString(),
-      reply_to: replyMessage? replyMessage.id : null ,
+      replyTo: replyMessage? replyMessage.id : null ,
     };
 
     addMessage(newMessage);

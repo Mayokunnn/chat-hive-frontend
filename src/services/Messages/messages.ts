@@ -9,6 +9,7 @@ export const fetchMessages = async (conversationId: string): Promise<MessageData
 
 export const sendMessage = async (conversationId: string, message: Partial<Message>) => {
   const { data } = await axiosInstance.post(`/conversations/${conversationId}/messages/send`, message);
+  console.log(message);
   return data.data;
 };
 

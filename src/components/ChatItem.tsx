@@ -42,8 +42,8 @@ export default function ChatItem({ conversation }: Props) {
       <Avatar name={conversation?.name} image={conversation?.image} active={conversation?.active} />
       <div className="w-full flex justify-between ">
         <div className="flex flex-col justify-between">
-          <h3 className="text-lg font-semibold text-primary-content">{conversation?.name}</h3>
-          <p className="text-sm text-primary-content">{conversation?.lastMessage ? conversation.lastMessage.length > 250 ? "Photo" : conversation.lastMessage : ""}</p>
+          <h3 className="text-lg font-semibold text-primary-content overflow-hidden text-ellipsis truncate">{conversation?.name}</h3>
+          <p className="text-sm text-primary-content text-ellipsis overflow-hidden truncate pr-5">{conversation?.lastMessage ? conversation.lastMessage.length > 250 ? "Photo" : conversation.lastMessage : ""}</p>
         </div>
         <div className="flex flex-col items-center gap-1">
           <p className="text-sm text-primary-content">{conversation.lastMessage && getTime(conversation?.lastMessageTime)}</p>

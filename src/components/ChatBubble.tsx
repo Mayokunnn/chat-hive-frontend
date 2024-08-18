@@ -4,7 +4,7 @@ import { useMessages } from "../context/MessageContext";
 import ChatText from "./ChatText";
 import { categorizeMessagesByDay } from "../utils/helpers";
 import { useReplyMessage } from "../context/ReplyMessageContext";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import useModal from "../hooks/useModal";
 import { useConversations } from "../services/Conversations/useConversations";
 import { useConversation } from "../context/ConversationContext";
@@ -23,8 +23,11 @@ export default function ChatBubble() {
   const id = localStorage.getItem("userId");
   const { setMessages, messages } = useMessages();
   const { useMessages: fetchMessages } = useConversations();
-  const { data, isSuccess, isError, isPending } = fetchMessages(conversation?.id);
-  const [activeModal, setActiveModal] = useState<string | null>(null);
+  const { data, isSuccess, isError, isPending } = fetchMessages(
+    conversation?.id + ""
+  );
+  console.log(messages);
+  // const [activeModal, setActiveModal] = useState<string | null>(null);
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -34,20 +37,10 @@ export default function ChatBubble() {
 
   useEffect(() => {
     if (isSuccess && data.data) {
-      const newData = data.data
+      const newData = data.data;
       setMessages(newData);
     }
   }, [data, isSuccess, setMessages]);
-
-  const handleShowEditModal = (messageId: string) => {
-    setActiveModal(`editMessage-${messageId}`);
-    handleShowModal(`editMessage-${messageId}`);
-  };
-
-  const handleShowDeleteModal = (messageId: string) => {
-    setActiveModal(`deleteMessage-${messageId}`);
-    handleShowModal(`deleteMessage-${messageId}`);
-  };
 
   if (isPending || isError) {
     return <ChatSkeleton />;
@@ -77,7 +70,8 @@ export default function ChatBubble() {
             </div>
             {dayMessages?.map((message: Message, index: number) => {
               const isSameSenderAsPrevious =
-                index > 0 && dayMessages[index - 1].senderId === message.senderId;
+                index > 0 &&
+                dayMessages[index - 1].senderId === message.senderId;
 
               const handleReplyClick = () => {
                 setReplyMessage(message);
@@ -100,66 +94,82 @@ export default function ChatBubble() {
                           size={"small"}
                         />
                       </div>
-                      <div className="chat-header px-3 py-0 text-gray-300">
+                      <div className="chat-header px-3 py-0 text-secondary font-medium">
                         {id == message.senderId ? "You" : message?.senderName}
                       </div>
                     </>
                   )}
                   <div className="flex items-center gap-x-2 overflow-visible">
-                    <ChatText message={message} sameSender={isSameSenderAsPrevious} />
-                    <ChatImage message={message} sameSender={isSameSenderAsPrevious} />
+                    <ChatText
+                      message={message}
+                      sameSender={isSameSenderAsPrevious}
+                    />
+                    <ChatImage
+                      message={message}
+                      sameSender={isSameSenderAsPrevious}
+                    />
                     <div
                       className={`dropdown dropdown-top overflow-visible ${
-                        id == message.senderId ? "dropdown-left" : "dropdown-right"
+                        id == message.senderId
+                          ? "dropdown-left"
+                          : "dropdown-right"
                       }`}
                     >
-                      <div className="cursor-pointer" tabIndex={0} role="button">
-                        <IoIosArrowDown
-                          size={20}
-                          color="white"
-                          className={`opacity-10 group-hover:opacity-50`}
-                        />
-                      </div>
-                      <ul
-                        tabIndex={0}
-                        className="menu dropdown-content bg-gray-700 text-white w-32 rounded-md z-[100] p-2 shadow"
-                      >
-                        <li className="hover:bg-gray-800">
-                          <a onClick={handleReplyClick}>Reply</a>
-                        </li>
-                        <li
-                          onClick={() => handleShowModal("forward")}
-                          className="hover:bg-gray-800"
+                      <Modal.Open opens="menu">
+                        <div
+                          className="cursor-pointer bg-secondary opacity-10 group-hover:opacity-80 rounded-md"
+                          tabIndex={0}
+                          role="button"
                         >
-                          <a>Forward</a>
-                        </li>
-                        {message.content && id == message.senderId && (
-                          <li
-                            onClick={() => handleShowEditModal(message.id)}
-                            className="hover:bg-gray-800"
-                          >
-                            <a>Edit</a>
-                            {activeModal === `editMessage-${message.id}` && (
-                              <Modal name={`editMessage-${message.id}`}>
-                                <EditMessageForm id={message.id} message={message.content} />
-                              </Modal>
-                            )}
+                          <IoIosArrowDown
+                            size={20}
+                            color="white"
+                            className={`opacity-10 group-hover:opacity-50`}
+                          />
+                        </div>
+                      </Modal.Open>
+                      <Modal.Window name="menu">
+                        <ul>
+                          <li className="hover:opacity-20">
+                            <a onClick={handleReplyClick}>Reply</a>
                           </li>
-                        )}
-                        {id == message.senderId && (
                           <li
-                            onClick={() => handleShowDeleteModal(message?.id)}
-                            className="hover:bg-gray-800"
+                            onClick={() => handleShowModal("forward")}
+                            className="hover:opacity-20"
                           >
-                            <a>Delete</a>
-                            {activeModal === `deleteMessage-${message.id}` && (
-                              <Modal name={`deleteMessage-${message.id}`}>
-                                <DeleteMessageForm id={message?.id} />
-                              </Modal>
-                            )}
+                            <a>Forward</a>
                           </li>
-                        )}
-                      </ul>
+                          {message.content && id == message.senderId && (
+                            <>
+                              <Modal.Open opens={`editMessage-${message.id}`}>
+                                <li className="hover:opacity-20">
+                                  <a>Edit</a>
+                                </li>
+                              </Modal.Open>
+                              <Modal.Window name={`editMessage-${message.id}`}>
+                                <EditMessageForm
+                                  id={message.id + ""}
+                                  message={message.content}
+                                />
+                              </Modal.Window>
+                            </>
+                          )}
+                          {id == message.senderId && (
+                            <>
+                              <Modal.Open opens={`deleteMessage-${message.id}`}>
+                                <li className="hover:opacity-20">
+                                  <a>Delete</a>
+                                </li>
+                              </Modal.Open>
+                              <Modal.Window
+                                name={`deleteMessage-${message.id}`}
+                              >
+                                <DeleteMessageForm id={message?.id + ""} />
+                              </Modal.Window>
+                            </>
+                          )}
+                        </ul>
+                      </Modal.Window>
                     </div>
                   </div>
                 </div>

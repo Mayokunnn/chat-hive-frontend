@@ -9,7 +9,7 @@ import { useUser } from "../services/Users/useUser";
 
 export default function AppLayout() {
   const id = localStorage.getItem("userId");
-  useUser(id);
+  useUser(id + "");
   const { conversation } = useConversation();
 
   return (

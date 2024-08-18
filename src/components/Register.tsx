@@ -40,7 +40,7 @@ export default function Register() {
           Some of your friends are waiting for you
         </h2>
       </div>
-      <Divider>Or Sign In with</Divider>
+      <Divider>Or Sign Up with</Divider>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="py-8 px-16 w-full flex flex-col items-center gap-10"

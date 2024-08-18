@@ -10,6 +10,8 @@ import {
 } from './conversations';
 import { Conversation } from '../../utils/types';
 import { fetchMessages } from '../Messages/messages';
+import { AxiosError } from 'axios';
+import toast from 'react-hot-toast';
 
 export const useConversations = () => {
   const queryClient = useQueryClient();
@@ -17,12 +19,16 @@ export const useConversations = () => {
  const conversations = useQuery({
     queryKey: ['conversations'],
     queryFn: fetchConversations,
+    enabled: true,
+    staleTime: 0,
   });
 
 
   const allConversations = useQuery({
     queryKey: ['conversations'],
     queryFn: fetchAllConversations,
+    enabled: true,
+    staleTime: 5,
   });
 
 
@@ -43,6 +49,11 @@ export const useConversations = () => {
         refetchType: 'active',
       });
     },
+    onError: (data: AxiosError) => {
+      console.log(data);
+      const errorData: Error = data.response?.data;
+      toast.error(errorData.message);
+  },
   });
 
   // Update conversation

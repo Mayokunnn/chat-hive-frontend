@@ -29,6 +29,10 @@ export default function Login() {
 
   useEffect(() => {
     document.title = "Login | Chat Hive";
+
+    return () => {
+      document.title = "Chat Hive"
+    }
   }, []);
 
   return (

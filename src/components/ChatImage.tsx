@@ -13,14 +13,14 @@ export default function ChatImage({ message, sameSender, reply }: Props) {
     message.url &&
     message.messageType === "image" && (
       <div
-        className={`${reply ? "w-full" : "relative "}  ${
+        className={`${reply ? "w-full" : "relative max-w-96"}  ${
           id == message.senderId ? "order-last" : "order-first"
         } ${sameSender ? "ml-10" : ""} `}
       >
         <img
           className={`chat-bubble p-1 contain  ${
             reply
-              ? "bg-gray-700 mb-1 cursor-pointer max-h-[200px] w-full opacity-60 pb-2"
+              ? "bg-neutral mb-1 cursor-pointer max-h-[200px] w-full opacity-60 pb-2"
               : "pb-4"
           } `}
           src={message.url}

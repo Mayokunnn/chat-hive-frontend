@@ -1,6 +1,6 @@
 // src/api/conversations.ts
 import axiosInstance from '../api';
-import { Conversation, ConversationData, ConversationsData} from '../../utils/types'
+import { Conversation, ConversationData, ConversationsData, CreateConversationData} from '../../utils/types'
 
 export const fetchConversations = async (): Promise<ConversationsData> => {
   const id = localStorage.getItem('userId');
@@ -18,7 +18,7 @@ export const fetchSingleConversation = async (conversationId: number): Promise<C
   return data;
 };
 
-export const createConversation = async (conversation: Partial<Conversation>)=> {
+export const createConversation = async (conversation: Partial<CreateConversationData>)=> {
   const { data } = await axiosInstance.post('/conversations/create', conversation);
   return data.data;
 };

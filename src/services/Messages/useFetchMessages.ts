@@ -1,4 +1,3 @@
-// src/hooks/useMessages.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   fetchMessages, 
@@ -10,29 +9,30 @@ import {
 } from './messages';
 import { Message, MessageData } from '../../utils/types';
 import toast from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
 export const useFetchMessages = (conversationId: string) => {
   const queryClient = useQueryClient();
-
   // Fetch messages for a conversation
   const messagesQuery = useQuery<MessageData>({
     queryKey: ['messages', conversationId],
     enabled: !!conversationId,
-    queryFn: () => fetchMessages(conversationId),
+    queryFn: () => conversationId ?? fetchMessages(conversationId) ,
+    
   });
 
   // Send a message
   const sendMessageMutation = useMutation({
     mutationFn: (message: Partial<Message>) => sendMessage(conversationId, message),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ['messages', conversationId],
         refetchType: 'active',
       });
     },
-    onError:(data) => {
+    onError:(data: AxiosError) => {
       // toast.error(data)
-      console.log(data)
+      console.log(data.config?.data)
     }
   });
 

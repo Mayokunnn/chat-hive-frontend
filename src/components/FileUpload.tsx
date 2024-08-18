@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { HiPlus } from "react-icons/hi2";
 import UploadForm from "./UploadForm"; // Ensure the correct path
 import useModal from "../hooks/useModal";
-import Modal from "./Modal";
+// import Modal from "./Modal";
 
 const FileUpload = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -64,13 +64,14 @@ const FileUpload = () => {
         </div>
       )}
       {isModalOpen && (
-        <Modal name="file">
+        // <Modal name="file">
           <UploadForm
             file={selectedFile}
             handleCloseModal={handleCloseModal}
             handleChangeFile={handleIconClick}
+
           />
-        </Modal>
+        // </Modal>
       )}
     </div>
   );

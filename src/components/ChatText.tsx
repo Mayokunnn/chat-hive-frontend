@@ -13,10 +13,10 @@ export default function ChatText({ message, sameSender, reply }: Props) {
   return (
     message.content && (
       <div
-        className={`chat-bubble bg-secondary text-secondary-content w-full min-w-16 max-w-96 whitespace-pre font-normal text-wrap break-all text-[0.9rem] overflow-visible relative ${
-          reply ? "bg-gray-700 mb-1 cursor-pointer" : "py-2 px-3"
+        className={`chat-bubble w-full min-w-16 max-w-96 whitespace-pre font-normal text-wrap break-all text-[0.8rem] relative ${
+          reply ? "bg-neutral text-black opacity-70 text-left mb-1 cursor-pointer overflow-hidden" : "py-2 px-3 overflow-visible bg-secondary text-secondary-content"
         }  ${
-          id == message.senderId ? "order-last pr-8" : "order-first pl-8"
+          id == message.senderId ? "order-last " : "order-first "
         }  ${
           sameSender && id != message.senderId && !reply
             ? "ml-12"
@@ -31,7 +31,7 @@ export default function ChatText({ message, sameSender, reply }: Props) {
         {message.content}
         {!reply && (
           <time
-            className={`text-[10px] absolute bottom-0 text-secondary-content group-hover:opacity-50 ${
+            className={`text-[8px] absolute bottom-0 text-secondary-content group-hover:opacity-50 ${
               id === message.senderId ? "right-2" : "left-2"
             }  `}
           >
