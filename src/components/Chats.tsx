@@ -1,14 +1,11 @@
-import { useConversations } from "../services/Conversations/useConversations";
-import { Conversation } from "../utils/types";
+import { Conversation, ConversationsData } from "../utils/types";
 import ChatItem from "./ChatItem";
 import { PiChatTeardropDotsFill } from "react-icons/pi";
 import Modal from "./Modal";
 import CreateConversationForm from "./CreateConversationForm";
 
-export default function Chats() {
-  const { conversations: conversationsData } = useConversations();
+export default function Chats({conversations, isSuccess}: {isSuccess: boolean, conversations: Conversation[]}) {
 
-  const { data: conversations, isSuccess } = conversationsData;
 
   // console.log(conversations)
   if (isSuccess && conversations?.length == 0) {

@@ -26,8 +26,6 @@ export default function ChatBubble() {
   const { data, isSuccess, isError, isPending } = fetchMessages(
     conversation?.id + ""
   );
-  console.log(messages);
-  // const [activeModal, setActiveModal] = useState<string | null>(null);
 
   useEffect(() => {
     if (chatEndRef.current) {

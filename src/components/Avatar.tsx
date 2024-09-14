@@ -3,7 +3,7 @@ import { getInitials } from "../utils/helpers";
 interface Props{
     name: string|undefined,
     image: string|undefined |null,
-    active?: boolean|undefined;
+    active?: boolean|number;
     status?: boolean
     size?:string
 }
